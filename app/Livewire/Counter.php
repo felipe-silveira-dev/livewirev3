@@ -29,6 +29,11 @@ class Counter extends Component
     {
         $this->count--;
     }
+
+    public function refresh() 
+    {
+          
+    }
  
     public function render()
     {

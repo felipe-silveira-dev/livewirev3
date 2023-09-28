@@ -82,3 +82,46 @@ class Counter extends Component
     }
 }
 ```
+
+### Data Binding
+- A propriedade publica é bilateral
+- A propriedade privada é unilateral
+```php
+class Counter extends Component
+{
+    public $counter = 0;
+    private $name = 'Felipe Silveira';
+
+    public function render()
+    {
+        return view('livewire.counter');
+    }
+}
+```
+```html
+<div>
+    <h1>{{ $counter }}</h1>
+    <h1>{{ $name }}</h1>
+</div>
+```
+- O Livewire não permite a alteração de propriedades privadas na view.
+
+Alguns exemplos de data binding:
+```html
+<div>
+    {{ $count }} 
+    <button wire:click="increment">+</button>
+    <button wire:click="decrement">-</button>
+    <x-text-input wire:model.live="name" />
+    <x-text-input wire:model.blur="email" />
+    <x-primary-button wire:click="refresh">Refresh</x-primary-button>
+
+    <br>
+    Meu nome é {{ $name }}
+    <br>
+    Meu email é {{ $email }}
+</div>
+```
+- live: executa a cada tecla digitada
+- blur: executa quando o campo perde o foco(clica fora)
+- debounce: executa após um tempo determinado
