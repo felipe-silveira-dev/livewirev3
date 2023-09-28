@@ -146,3 +146,26 @@ Alguns exemplos de data binding:
         <x-secondary-button x-on:click="$wire.name = 'Luffy do chapéu de Palha'">Mudar Nome no FrontEnd</x-secondary-button>
     </div>
 ```
+
+### Bloquear uma propriedade de ser alterada
+- Adicionar a anotação(Atributo) `#[Locked]` na propriedade.
+```php
+use Livewire\Attributes\Locked;
+...
+#[Locked]
+public $name = 'Felipe Silveira';
+...
+```
+
+### Eleqouent Models como propriedades
+- Adicionar no app/Providers/AppServiceProvider.php
+```php
+    public function boot(): void
+    {
+        Relation::morphMap([
+            'user' => \App\Models\User::class,
+        ]);
+    }
+```
+- Proteger a comunicação entre o back e o front.
+

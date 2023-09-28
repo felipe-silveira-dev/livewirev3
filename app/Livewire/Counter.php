@@ -2,12 +2,16 @@
 
 namespace App\Livewire;
 
+use Livewire\Attributes\Locked;
 use Livewire\Component;
 
 class Counter extends Component
 {
     public $count = 1;
+
+    #[Locked]
     public $name = 'Felipe Silveira';
+    
     public $email;
 
     public function mount()
