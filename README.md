@@ -58,3 +58,27 @@ class Counter extends Component
 }
 ```
 - O método `mount()` é executado antes do método `render()`.
+
+### Mass Assignment
+```php
+class Counter extends Component
+{
+    public $counter;
+    public $name;
+    public $email;
+
+    public function mount()
+    {
+        $this->fill([
+            'counter' => 10,
+            'name' => 'Felipe Silveira',
+            'email' => 'silveira@dev.com'
+        ]);
+    }
+
+    public function render()
+    {
+        return view('livewire.counter');
+    }
+}
+```

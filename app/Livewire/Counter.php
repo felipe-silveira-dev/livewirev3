@@ -7,6 +7,18 @@ use Livewire\Component;
 class Counter extends Component
 {
     public $count = 1;
+    public $name;
+    public $email;
+
+    public function mount()
+    {
+        $this->fill([
+            'counter' => 100,
+            'name' => 'Felipe Silveira',
+            'email' => 'silveira@dev.com'
+        ]);
+    }
+
  
     public function increment()
     {
