@@ -1,7 +1,6 @@
 ### Deep Dive in Livewire V3
 - [Livewire](https://livewire.laravel.com/) A conexão entre o back-end e o front-end.
 ## LEIA A DOCUMENTAÇÃO ISSO É APENAS UM RESUMO 
-
 Installing Livewire
 ```bash
 composer require livewire/livewire
@@ -19,11 +18,9 @@ O comando acima criará um componente Livewire em `app/Livewire/Counter.php` e u
 php artisan make:livewire counter-inline --inline
 ```
 O comando acima criará um componente Livewire em `app/Livewire/CounterInline.php`.
-
 ### Renderizando um componente Livewire
 ![Alt text](assets/render-component.png)
-
-### Propriedades
+## Propriedades
 ```php
 class Counter extends Component
 {
@@ -41,7 +38,6 @@ class Counter extends Component
 ```php
 <livewire:counter :counter="10" />
 ```
-
 #### Inicializando propriedades
 ```php
 class Counter extends Component
@@ -60,8 +56,7 @@ class Counter extends Component
 }
 ```
 - O método `mount()` é executado antes do método `render()`.
-
-### Mass Assignment
+### Mass Assignment Propriedades
 ```php
 class Counter extends Component
 {
@@ -84,8 +79,7 @@ class Counter extends Component
     }
 }
 ```
-
-### Data Binding
+### Data Binding Propriedades
 - A propriedade publica é bilateral
 - A propriedade privada é unilateral
 ```php
@@ -127,7 +121,6 @@ Alguns exemplos de data binding:
 - live: executa a cada tecla digitada
 - blur: executa quando o campo perde o foco(clica fora)
 - debounce: executa após um tempo determinado
-
 ### Reset de propriedades
 ```php
     public function refresh() 
@@ -135,7 +128,6 @@ Alguns exemplos de data binding:
         $this->reset(['count', 'name', 'email']);  
     }
 ```
-
 ### Acessando propriedades com javascript
 - $wire é uma variavel global que pode ser acessada em qualquer lugar.
 ```html
@@ -146,7 +138,6 @@ Alguns exemplos de data binding:
         <x-secondary-button x-on:click="$wire.name = 'Luffy do chapéu de Palha'">Mudar Nome no FrontEnd</x-secondary-button>
     </div>
 ```
-
 ### Bloquear uma propriedade de ser alterada
 - Adicionar a anotação(Atributo) `#[Locked]` na propriedade.
 ```php
@@ -156,7 +147,6 @@ use Livewire\Attributes\Locked;
 public $name = 'Felipe Silveira';
 ...
 ```
-
 ### Eleqouent Models como propriedades
 - Adicionar no app/Providers/AppServiceProvider.php
 ```php
@@ -168,8 +158,7 @@ public $name = 'Felipe Silveira';
     }
 ```
 - Proteger a comunicação entre o back e o front.
-
-## Propiedades Computadas
+### Propiedades Computadas
 - O livewire fornece um atributo chamado `computed` que permite que você transfrome metodos em propriedades computadas.
 ```php
 use Livewire\Attributes\Computed;
@@ -182,3 +171,5 @@ use Livewire\Attributes\Computed;
     }
 ```
 - Pode ser usado para calculos, formatação de dados, etc.
+
+## Actions
