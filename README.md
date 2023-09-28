@@ -1,11 +1,13 @@
 ### Deep Dive in Livewire V3
 - [Livewire](https://livewire.laravel.com/) A conexão entre o back-end e o front-end.
-## LEIA A DOCUMENTAÇÃO ESTE É APENAS UM RESUMO 
+## LEIA A DOCUMENTAÇÃO ISSO É APENAS UM RESUMO 
 
 Installing Livewire
 ```bash
 composer require livewire/livewire
 ```
+-- Versão 3.0.0
+- Verificar app.js se houver importação do Alpine.js remover, pois o Livewire já vem com o Alpine.js.
 ### Criando um componente Livewire
 Existem duas maneiras de criar um componente Livewire.
 ```bash
@@ -125,3 +127,22 @@ Alguns exemplos de data binding:
 - live: executa a cada tecla digitada
 - blur: executa quando o campo perde o foco(clica fora)
 - debounce: executa após um tempo determinado
+
+### Reset de propriedades
+```php
+    public function refresh() 
+    {
+        $this->reset(['count', 'name', 'email']);  
+    }
+```
+
+### Acessando propriedades com javascript
+- $wire é uma variavel global que pode ser acessada em qualquer lugar.
+```html
+    <div x-data="">
+        <span x-text="$wire.name"></span>
+        <span x-text="$wire.email"></span>
+        <x-secondary-button x-on:click="$wire.set('name', 'Luffy do chapéu de Palha')">Mudar Nome Indo no Backend</x-secondary-button>
+        <x-secondary-button x-on:click="$wire.name = 'Luffy do chapéu de Palha'">Mudar Nome no FrontEnd</x-secondary-button>
+    </div>
+```
