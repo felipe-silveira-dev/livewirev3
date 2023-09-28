@@ -18,6 +18,6 @@ php artisan make:livewire counter --inline
 O comando acima criará um componente Livewire em `app/Livewire/Counter.php`.
 
 ### Renderizando um componente Livewire
-![Alt text](assets/image.png)
+![Alt text](assets/render-component.png)
 
 ### Propriedades
