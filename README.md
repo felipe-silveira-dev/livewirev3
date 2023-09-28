@@ -169,3 +169,16 @@ public $name = 'Felipe Silveira';
 ```
 - Proteger a comunicação entre o back e o front.
 
+## Propiedades Computadas
+- O livewire fornece um atributo chamado `computed` que permite que você transfrome metodos em propriedades computadas.
+```php
+use Livewire\Attributes\Computed;
+
+
+    #[Computed]
+    public function users()
+    {
+        return User::query()->select('id', 'name', 'email')->paginate();
+    }
+```
+- Pode ser usado para calculos, formatação de dados, etc.
