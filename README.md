@@ -173,3 +173,10 @@ use Livewire\Attributes\Computed;
 - Pode ser usado para calculos, formatação de dados, etc.
 
 ## Actions
+### Disparando Actions
+- No form
+```html
+<form wire:submit='calculate'>
+        <x-secondary-button type="submit">Calcular com submit form</x-secondary-button>
+</form>
+```
