@@ -202,3 +202,34 @@ use Livewire\Attributes\Computed;
         <span wire:loading wire:target="calculate">Salvando...</span>
 </form>
 ```
+- O wire:loading.class="hidden" esconde o botão enquanto a action é executada.
+
+- Recebendo e passando parametros para actions.
+```html
+<form wire:submit.prevent='calculate(10, 20)'>
+    <textarea wire:model="content"></textarea>
+        <x-secondary-button type="submit" wire:loading.class="hidden" wire.targert="calculate">Calcular</x-secondary-button>
+        <span wire:loading wire:target="calculate">Salvando...</span>
+</form>
+```
+```php
+    public function calculate($num1, $num2)
+    {
+        $this->result = $num1 + $num2;
+    }
+```
+- Passando parametros via javascript
+```html
+<form wire:submit.prevent='calculate(10, 20)'>
+    <textarea wire:model="content"></textarea>
+        <x-secondary-button type="submit" wire:loading.class="hidden" wire.targert="calculate">Calcular</x-secondary-button>
+        <span wire:loading wire:target="calculate">Salvando...</span>
+</form>
+```
+```js
+    <script>
+        window.livewire.on('calculate', (num1, num2) => {
+            alert(num1 + num2);
+        });
+    </script>
+```
