@@ -233,3 +233,38 @@ use Livewire\Attributes\Computed;
         });
     </script>
 ```
+- Protegendo ações com Gates
+```php
+    public function calculate($num1, $num2)
+    {
+        if (Gate::denies('calculate')) {
+            abort(403);
+        }
+        $this->result = $num1 + $num2;
+    }
+```
+- É possivel realizar injenção de dependencia nas actions.
+```php
+    public function calculate($num1, $num2, Request $request)
+    {
+        $this->result = $num1 + $num2;
+    }
+```
+- Executando ações atraves do javascript
+```html
+    <x-secondary-button x-on:click="$wire.calculate(10, 20)">Calcular</x-secondary-button>
+    <x-secondary-button @click="$wire.calculate(10, 20)">Calcular</x-secondary-button>
+```
+- Skip Re-render.
+https://livewire.laravel.com/docs/actions#skipping-re-renders
+
+```php
+use Livewire\Attributes\Renderless;
+
+    #[Renderless]
+    public function calculate($num1, $num2)
+    {
+        $this->result = $num1 + $num2;
+        $this->skipRender();
+    }
+```
