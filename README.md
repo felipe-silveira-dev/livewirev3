@@ -180,3 +180,25 @@ use Livewire\Attributes\Computed;
         <x-secondary-button type="submit">Calcular com submit form</x-secondary-button>
 </form>
 ```
+- No keydown
+```html
+<input type="text" wire:keydown.enter="calculate">
+<input wire:model="num2" label="Numero 2"
+            wire.keydown.enter="calculate"
+            wire:keydown.u='num1 = 34891247239874389274'
+/>
+```
+- O prevent é usado para previnir o comportamento padrão.
+```html
+<input
+            wire:keydown.prevent.u.='num1 = 34891247239874389274'
+/>
+```
+- Desabilitar inputs enquanto a action é executada.
+```html
+<form wire:submit='calculate'>
+    <textarea wire:model="content"></textarea>
+        <x-secondary-button type="submit" wire:loading.class="hidden" wire.targert="calculate">Calcular</x-secondary-button>
+        <span wire:loading wire:target="calculate">Salvando...</span>
+</form>
+```
