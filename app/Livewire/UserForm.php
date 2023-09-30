@@ -2,19 +2,14 @@
 
 namespace App\Livewire;
 
+use App\Livewire\Forms\UserForm as FormsUserForm;
 use App\Models\User;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
 
 class UserForm extends Component
 {
-    #[Rule(['required', 'min:3', 'max:255', 'unique:users,name'])]
-    public string $name;
-    #[Rule(['required', 'email', 'unique:users,email'])]
-    public string $email;
-    #[Rule(['required', 'min:8'])]
-    public string $password;
-    public string $passwordConfirmation;
+    public FormsUserForm $form;
 
     public function render()
     {
@@ -26,9 +21,9 @@ class UserForm extends Component
         $this->validate();
 
         User::create([
-            'name' => $this->name,
-            'email' => $this->email,
-            'password' => bcrypt($this->password)
+            'name' => $this->form->name,
+            'email' => $this->form->email,
+            'password' => bcrypt($this->form->password)
         ]);
     }
 }

@@ -322,4 +322,99 @@ use Livewire\Attributes\Rule;
         $this->validateOnly($attr);
     }
 ```
+- Atualização em tempo real
+```html
+    <textarea wire:model="content"></textarea>
+```
+```php
+    public function updated($attr, $value)
+    {
+        auth()->user()->update([
+            $attr => $value
+        ]);
+    }
+```
+- Novo componente Form
+```bash
+php artisan livewire:form UserForm
+```
+```php
+use Livewire\Attributes\Rule;
+use Livewire\Form;
 
+class UserForm extends Form
+{
+    #[Locked]
+    public ?int $id = null;
+
+    #[Rule(['required', 'min:3', 'max:255', 'unique:users,name'])]
+    public string $name;
+
+    #[Rule(['required', 'email', 'unique:users,email'])]
+    public string $email;
+    
+    #[Rule(['required', 'min:8'])]
+    public string $password;
+    public string $passwordConfirmation;
+}
+```
+- Posso criar as ações no componente Form
+```php
+public function save()
+{
+    $this->validate();
+    User::updatedOrCreate(
+        [
+            'id' => $this->id
+        ], 
+        [ 
+            'name' => $this->name,
+            'email' => $this->email,
+            'password' => bcrypt($this->password)
+        ]
+    );
+}
+```
+- Injetar o componente Form.
+```php
+class CreateUser extends Component
+{
+    public UserForm $form;
+
+    public function submit()
+    {
+        $this->form->save();
+    }
+}
+class EditUser extends Component
+{
+    public UserForm $form;
+
+    public function mount(User $user)
+    {
+        $this->form->fill($user);
+    }
+
+    public function submit()
+    {
+        $this->form->save();
+    }
+}
+```
+- Como fica no html
+```html
+<form wire:submit.prevent="submit">
+    <x-text-input wire:model="form.name" label="Nome" />
+    <x-text-input wire:model="form.email" label="Email" />
+    <x-text-input wire:model="form.password" label="Senha" />
+    <x-text-input wire:model="form.passwordConfirmation" label="Confirmação de Senha" />
+    <x-secondary-button type="submit">Salvar</x-secondary-button>
+</form>
+```
+- Wire Dirty, modificou e não salvou.
+```html
+<form wire:submit.prevent="submit">
+    <x-text-input wire:model="form.name" label="Nome" />
+    <span wire:dirty wire.target="form.name">Modificado e não salvou</span>
+</form>
+```
