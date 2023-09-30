@@ -257,7 +257,7 @@ use Livewire\Attributes\Computed;
 ```
 - Skip Re-render.
 https://livewire.laravel.com/docs/actions#skipping-re-renders
-
+Um metodo que não atualiza a view.
 ```php
 use Livewire\Attributes\Renderless;
 
@@ -268,3 +268,58 @@ use Livewire\Attributes\Renderless;
         $this->skipRender();
     }
 ```
+
+## Forms
+- Validando propriedades no Livewirev3
+```php
+use Livewire\Attributes\Rule;
+
+
+    #[Rule(['required', 'min:3', 'max:255', 'unique:users,name'])]
+    public string $name;
+    #[Rule(['required', 'email', 'unique:users,email'])]
+    public string $email;
+    #[Rule(['required', 'min:8', 'max:255', 'confirmed'])]
+    public string $password;
+    public string $password_confirmation;
+
+    public function submit()
+    {
+        $this->validate();
+        
+        User::create([
+            'name' => $this->name,
+            'email' => $this->email,
+            'password' => bcrypt($this->password)
+        ]);
+    }
+```
+- Validação de erros com a function rule()
+```php
+    public function rules()
+    {
+        return [
+            'name' => ['required', 'min:3', 'max:255', Rule::unique('users', 'name')->ignore($this->user)],
+            'email' => ['required', 'email', 'unique:users,email'],
+            'password' => ['required', 'min:8', 'max:255', 'confirmed']
+        ];
+    }
+```
+- Mostrando erro
+```html
+    <x-text-input wire:model="name" label="Nome" />
+    @error('name') <span class="error">{{ $message }}</span> @enderror
+```
+- Validação em tempo real
+```html
+    <x-text-input wire:model.live="name" label="Nome" />
+    ou
+    <x-text-input wire:model.blur="name" label="Nome" />
+```
+```php
+    public function updated($attr, $value)
+    {
+        $this->validateOnly($attr);
+    }
+```
+
