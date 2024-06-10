@@ -1,6 +1,5 @@
 ### Deep Dive in Livewire V3
 - [Livewire](https://livewire.laravel.com/) A conexão entre o back-end e o front-end.
-## LEIA A DOCUMENTAÇÃO ISSO É APENAS UM RESUMO 
 Installing Livewire
 ```bash
 composer require livewire/livewire
